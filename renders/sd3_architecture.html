@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<head>
+    <title>HTML Views</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body{
+            font-size: large;
+        }
+        /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+.tab {
+            display: inline-block;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <center><h1>HTML Views</h1></center><br>
+    <center><h2>Stable Diffusion 3 (Medium) Transformer 2D Architecture</h2></center>
+    <center>
+        <a href="../index.html">Go back to home</a>
+    </center>
+
+<div style="width: 70%; margin: auto;">
+<button class="accordion">pos_embed</button>
+<div class="panel">
+    PatchEmbed(<br>
+    (proj): Conv2d(16, 1536, kernel_size=(2, 2), stride=(2, 2))<br>
+    )
+  </div>
+
+<button class="accordion">time_text_embed</button>
+<div class="panel">
+  <p>CombinedTimestepTextProjEmbeddings</p>
+  <button class="accordion">time_proj</button>
+  <div class="panel">
+    Timesteps()
+  </div>
+
+  <button class="accordion">timestep_embedder</button>
+  <div class="panel">
+    TimestepEmbedding(<br>
+    &emsp;(linear_1): Linear(in_features=256, out_features=1536, bias=True) <br>
+    &emsp;(act): SiLU()<br>
+    &emsp;(linear_2): Linear(in_features=1536, out_features=1536, bias=True)<br>
+    )
+  </div>
+
+
+  <button class="accordion">text_embedder</button>
+  <div class="panel">
+    PixArtAlphaTextProjection(<br>
+    &emsp;(linear_1): Linear(in_features=2048, out_features=1536, bias=True) <br>
+    &emsp;(act_1): SiLU()<br>
+    &emsp;(linear_2): Linear(in_features=1536, out_features=1536, bias=True)<br>
+      )
+  </div>
+</div>
+
+<button class="accordion">context_embedder</button>
+<div class="panel">
+    Linear(in_features=4096, out_features=1536, bias=True)
+</div>
+
+
+<button class="accordion">transformer_blocks</button>
+<div class="panel">
+    <button class="accordion">23 x JointTransformerBlock (0-22)</button>
+    <div class="panel">
+        <button class="accordion">norm_1</button>
+        <div class="panel">
+            AdaLayerNormZero(<br>
+            &emsp;(silu): SiLU()<br>
+            &emsp;(linear): Linear(in_features=1536, out_features=9216, bias=True)<br>
+            &emsp;(norm): LayerNorm((1536,), eps=1e-06, elementwise_affine=False)<br>
+            )<br>
+        </div>
+
+        <button class="accordion">norm_1_context</button>
+        <div class="panel">
+            AdaLayerNormZero(<br>
+            &emsp;(silu): SiLU()<br>
+            &emsp;(linear): Linear(in_features=1536, out_features=9216, bias=True)<br>
+            &emsp;(norm): LayerNorm((1536,), eps=1e-06, elementwise_affine=False)<br>
+            )
+        </div>
+
+        <button class="accordion">attn</button>
+        <div class="panel">
+            Attention( <br>
+            &emsp;(to_q): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(to_k): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(to_v): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(add_k_proj): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(add_v_proj): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(add_q_proj): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(to_out): ModuleList(<br>
+            &emsp;&emsp;(0): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;&emsp;(1): Dropout(p=0.0, inplace=False)<br>
+                )<br>
+                &emsp;(to_add_out): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            )
+        </div>
+
+        <button class="accordion">norm_2</button>
+        <div class="panel">
+            LayerNorm((1536,), eps=1e-06, elementwise_affine=False)
+        </div>
+
+        <button class="accordion">ff</button>
+        <div class="panel">
+            FeedForward(<br>
+            &emsp;(net): ModuleList( <br>
+            &emsp;&emsp;(0): GELU(<br>
+            &emsp;&emsp;&emsp;(proj): Linear(in_features=1536, out_features=6144, bias=True)<br>
+            &emsp;&emsp;)<br>
+            &emsp;&emsp;(1): Dropout(p=0.0, inplace=False)<br>
+            &emsp;&emsp;(2): Linear(in_features=6144, out_features=1536, bias=True)<br>
+            &emsp;)<br>
+            )
+        </div>
+
+        <button class="accordion">norm_2_context</button>
+        <div class="panel">
+            LayerNorm((1536,), eps=1e-06, elementwise_affine=False)
+        </div>
+
+        <button class="accordion">ff_context</button>
+        <div class="panel">
+            FeedForward(<br>
+            &emsp;(net): ModuleList(<br>
+            &emsp;&emsp;(0): GELU(<br>
+            &emsp;&emsp;&emsp;(proj): Linear(in_features=1536, out_features=6144, bias=True)<br>
+            &emsp;&emsp;)<br>
+            &emsp;&emsp;(1): Dropout(p=0.0, inplace=False)<br>
+            &emsp;&emsp;(2): Linear(in_features=6144, out_features=1536, bias=True)<br>
+            &emsp;)<br>
+            )<br>
+        </div>
+
+
+    
+    </div>
+    <button class="accordion">1 x JointTransformerBlock (23)</button>
+    <div class="panel">
+        <button class="accordion">norm_1</button>
+        <div class="panel">
+            AdaLayerNormZero(<br>
+            &emsp;(silu): SiLU()<br>
+            &emsp;(linear): Linear(in_features=1536, out_features=9216, bias=True)<br>
+            &emsp;(norm): LayerNorm((1536,), eps=1e-06, elementwise_affine=False)<br>
+            )<br>
+        </div>
+
+
+        <button class="accordion">norm_1_context</button>
+        <div class="panel">
+            AdaLayerNormZero(<br>
+            &emsp;(silu): SiLU()<br>
+            &emsp;(linear): Linear(in_features=1536, out_features=3072, bias=True)<br>
+            &emsp;(norm): LayerNorm((1536,), eps=1e-06, elementwise_affine=False)<br>
+            )
+        </div>
+
+        <button class="accordion">attn</button>
+        <div class="panel">
+            Attention(<br>
+            &emsp;(to_q): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(to_k): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(to_v): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(add_k_proj): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(add_v_proj): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(add_q_proj): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;(to_out): ModuleList(<br>
+            &emsp;&emsp;(0): Linear(in_features=1536, out_features=1536, bias=True)<br>
+            &emsp;&emsp;(1): Dropout(p=0.0, inplace=False)<br>
+            &emsp;)<br>
+            )
+        </div>
+
+        <button class="accordion">norm_2</button>
+        <div class="panel">
+            LayerNorm((1536,), eps=1e-06, elementwise_affine=False)
+        </div>
+
+        <button class="accordion">ff</button>
+        <div class="panel">
+            FeedForward(<br>
+            &emsp;(net): ModuleList(<br>
+            &emsp;&emsp;(0): GELU(<br>
+            &emsp;&emsp;&emsp;(proj): Linear(in_features=1536, out_features=6144, bias=True)<br>
+            &emsp;&emsp;)<br>
+            &emsp;&emsp;(1): Dropout(p=0.0, inplace=False)<br>
+            &emsp;&emsp;(2): Linear(in_features=6144, out_features=1536, bias=True)<br>
+            &emsp;)<br>
+            )
+        </div>
+    </div>
+</div>
+
+<button class="accordion">norm_out</button>
+<div class="panel">
+    AdaLayerNormContinuous(<br>
+    &emsp;(silu): SiLU()<br>
+    &emsp;(linear): Linear(in_features=1536, out_features=3072, bias=True)<br>
+    &emsp;(norm): LayerNorm((1536,), eps=1e-06, elementwise_affine=False)<br>
+    )
+    
+</div>
+
+<button class="accordion">proj_out</button>
+<div class="panel">
+    Linear(in_features=1536, out_features=64, bias=True)
+</div>
+
+</div>
+
+      
+
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
