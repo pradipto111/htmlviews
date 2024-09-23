@@ -29,7 +29,7 @@
     <center>Last updated on {{update}}</center>
     <p><br>
     <center>
-    Chosen classes from imagenet with <100k unigram occurances in LAION2B.
+    Chosen classes from CUB-200-2011 with 20 least occurances in LAION400M.
     </center>
     </p><br>
     <center>
@@ -40,7 +40,7 @@
             <th>***</th>
             <th>Stable Diffusion 3</th>
         </tr>
-        {%for class in classes%}
+        {%for class in classes%} 
         {% set bg = "#ffffff" %}
         {% if class in red_classes %}
         {% set bg = "#f0a19c" %}
@@ -50,15 +50,15 @@
             <td>
                 <table>
                     <tr>
-                        {% set image_path = "../data/sd2/" + class + "/0.png" %}
+                        {% set image_path = '../data/cub/sd2/' + class + "/0.png" %}
                         <td><img src={{ image_path }}></td>
-                        {% set image_path = "../data/sd2/" + class + "/1.png" %}
+                        {% set image_path = '../data/cub/sd2/' + class + "/1.png" %}
                         <td><img src={{ image_path }}></td>
                     </tr>
                     <tr>
-                        {% set image_path = "../data/sd2/" + class + "/2.png" %}
+                        {% set image_path = '../data/cub/sd2/' + class + "/2.png" %}
                         <td><img src={{ image_path }}></td>
-                        {% set image_path = "../data/sd2/" + class + "/3.png" %}
+                        {% set image_path = '../data/cub/sd2/' + class + "/3.png" %}
                         <td><img src={{ image_path }}></td>
                     </tr>
                 </table>
@@ -67,15 +67,15 @@
             <td>
                 <table>
                     <tr>
-                        {% set image_path = "../data/sd3/" + class + "/0.png" %}
+                        {% set image_path = '../data/cub/sd3/' + class + "/0.png" %}
                         <td><img src={{ image_path }}></td>
-                        {% set image_path = "../data/sd3/" + class + "/1.png" %}
+                        {% set image_path = '../data/cub/sd3/' + class + "/1.png" %}
                         <td><img src={{ image_path }}></td>
                     </tr>
                     <tr>
-                        {% set image_path = "../data/sd3/" + class + "/2.png" %}
+                        {% set image_path = '../data/cub/sd3/' + class + "/2.png" %}
                         <td><img src={{ image_path }}></td>
-                        {% set image_path = "../data/sd3/" + class + "/3.png" %}
+                        {% set image_path = '../data/cub/sd3/' + class + "/3.png" %}
                         <td><img src={{ image_path }}></td>
                     </tr>
                 </table>

@@ -4,7 +4,9 @@ from datetime import date
 env = Environment(loader = FileSystemLoader('templates'))
 template = env.get_template('rare_concepts.jinja')
 
-class_names = os.listdir('./data/sd2')
+class_names = os.listdir('./data/cub/sd2/')
+src = './data/cub/'
+
 
 update = date.today()
 
@@ -20,5 +22,5 @@ red_classes = ['Gymnastic_horizontal_bar',
                'Payphone',
                'unicycle',]
 
-with open("renders/rare_concepts.html", "w") as f:
+with open("renders/rare_concepts_cub.html", "w") as f:
     print(template.render(classes = class_names, red_classes = red_classes, update = str(update)), file = f)
