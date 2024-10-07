@@ -39,6 +39,8 @@
             <th>SD 2.1</th>
             <th>***</th>
             <th>Custom Diffusion (SD2.1)</th>
+            <th>***</th>
+            <th>LORA Finetuning (SD3)</th>
         </tr>
         {%for class in classes%} 
         {% set bg = "#ffffff" %}
@@ -76,6 +78,23 @@
                         {% set image_path = '../data/sd2_ft/' + class + "/2.png" %}
                         <td><img src={{ image_path }}></td>
                         {% set image_path = '../data/sd2_ft/' + class + "/3.png" %}
+                        <td><img src={{ image_path }}></td>
+                    </tr>
+                </table>
+            </td>
+            <td> </td>
+            <td>
+                <table>
+                    <tr>
+                        {% set image_path = '../data/lora_sd2/' + class + "/0.png" %}
+                        <td><img src={{ image_path }}></td>
+                        {% set image_path = '../data/lora_sd2/' + class + "/1.png" %}
+                        <td><img src={{ image_path }}></td>
+                    </tr>
+                    <tr>
+                        {% set image_path = '../data/lora_sd2/' + class + "/2.png" %}
+                        <td><img src={{ image_path }}></td>
+                        {% set image_path = '../data/lora_sd2/' + class + "/3.png" %}
                         <td><img src={{ image_path }}></td>
                     </tr>
                 </table>
